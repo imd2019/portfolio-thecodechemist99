@@ -1,4 +1,7 @@
-/* setup file for p5.js */
+/* setup for p5.js */
+
+let fontSize;
+let fontLeading;
 
 function preload() {
   /* load JSON file */
@@ -13,18 +16,26 @@ function setup() {
   let url = "./javascript/content.json";
   loadJSON(url, generateHTML);
 
-  //   let screen = createCanvas(960, 680);
-  //   screen.parent("screen");
-  //   frameRate(30);
-  // }
+  /* p5 Canvas */
+  let myCanvas = createCanvas(windowWidth, windowHeight);
+  frameRate(30);
 
-  // function resizeHandler() {
-  //   resizeCanvas(960, 680);
-  //   clear();
+  // set text properties according to css
+  myCanvas.class("speechbubble");
+  font = myCanvas.style("font-family");
+  fontSize = Number(myCanvas.style("font-size").replace("px", ""));
+  fontLeading = Number(myCanvas.style("line-height").replace("px", ""));
+
+  textFont(font);
+  textSize(fontSize);
+  textLeading(fontLeading);
 }
 
-// window.addEventListener("resize", resizeHandler);
+window.addEventListener("resize", function () {
+  resizeCanvas(windowWidth, windowHeight);
+  clear();
+});
 
 new p5();
-// var width = 960;
-// var height = 600;
+var width = windowWidth;
+var height = windowHeight;

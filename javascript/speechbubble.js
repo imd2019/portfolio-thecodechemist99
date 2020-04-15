@@ -3,13 +3,8 @@ Draw a speechbubble and fit it to text.
 (c)2020 Florian Beck
 */
 
-fontSize = 25;
-fontLeading = 1.2 * fontSize;
-textSize(fontSize);
-textLeading(fontLeading);
-textFont("Helvetica");
+/* class declaration */
 
-// class declaration
 class Speechbubble {
   constructor(getX, getY, getWidth, getDirection, getColour, content) {
     this.x = getX;
@@ -78,21 +73,19 @@ class Speechbubble {
 
   textBoxHeight() {
     let length = this.content.length;
-
     return (length / (this.width / fontSize)) * fontLeading + 10;
   }
 }
 
-// draw content
+/* draw content */
+
 let bubble = new Speechbubble(
   10,
   10,
   400,
   "left",
-  "white",
+  "black",
   "Hallo, ich bin ein Text! Ich möchte mich gerne etwas umsehen! Warum magst du mich denn nicht? Dabei bin ich doch so ein schöner Text! Also wirklich, da bin ich ja fast ein bisschen eingeschnappt ..."
 );
 
-function draw() {
-  bubble.textbubble();
-}
+function draw() {}
