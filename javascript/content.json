@@ -1,0 +1,21 @@
+{
+  "en": {
+    "greeting": "Hey, I'm Florian",
+    "jobdescription": "A Designer, Writer and Technologist",
+    "selfdescription": [
+      "I’m a very passionate person and love to share my passions with others.",
+      "I truly believe that by sharing them I can inspire and connect with people &hellip;",
+      "&hellip; and together we have the power to change the world for the better.",
+      "Through curiosity, lifelong learning and my hands-on attitude &hellip;",
+      "&hellip; I hope to leave a positive impact on the life of individuals as well as humanity."
+    ],
+    "mindinvitation": "I invite you to have a look into my mind."
+  },
+
+  "de": {
+    "greeting": "Hey, ich bin Florian",
+    "jobdescription": "",
+    "selfdescription": ["", "", "", "", ""],
+    "mindinvitation": ""
+  }
+}
