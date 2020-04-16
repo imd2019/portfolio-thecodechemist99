@@ -73,19 +73,19 @@ class Speechbubble {
 
   textBoxHeight() {
     let length = this.content.length;
-    return (length / (this.width / fontSize)) * fontLeading + 10;
+    let avgCharWidth = (textWidth(this.content) / length) * 1.2;
+    let charPerLine = (this.width - 75) / avgCharWidth;
+
+    return ceil(length / charPerLine) * fontLeading + 140;
   }
 }
 
 /* draw content */
 
-let bubble = new Speechbubble(
-  10,
-  10,
-  400,
-  "left",
-  "black",
-  "Hallo, ich bin ein Text! Ich möchte mich gerne etwas umsehen! Warum magst du mich denn nicht? Dabei bin ich doch so ein schöner Text! Also wirklich, da bin ich ja fast ein bisschen eingeschnappt ..."
-);
+let bubbles = [];
 
-function draw() {}
+function draw() {
+  for (let i = 0; i < bubbles.length; i++) {
+    bubbles[i].textbubble();
+  }
+}
