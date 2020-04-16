@@ -13,41 +13,49 @@ function generateHTML(content) {
       break;
   }
 
-  // create HTML
-  document.getElementById("speechbubbles").innerHTML = `
+  // // create HTML
+  // document.getElementById("speechbubbles").innerHTML = `
 
-  <p class="greeting">${content.greeting}</p>
-  <p class="jobs">${content.jobdescription}</p>
-    ${content.selfdescription
-      .map(function (item) {
-        return `<p class="self-description">${item}</p>`;
-      })
-      .join("")}
-    `;
-
-  // bubbles.push(
-  //   new Speechbubble(
-  //     100,
-  //     100,
-  //     400,
-  //     "left",
-  //     "black",
-  //     "Hallo, ich bin ein Text! Ich möchte mich gerne etwas umsehen! Warum magst du mich denn nicht? Dabei bin ich doch so ein schöner Text! Also wirklich, da bin ich ja fast ein bisschen eingeschnappt ..."
-  //   )
-  // );
-
-  // bubbles.push(
-  //   new Speechbubble(
-  //     100,
-  //     100,
-  //     400,
-  //     "left",
-  //     "black",
-  //     "Hallo, ich bin ein Text! Ich möchte mich gerne etwas umsehen! Warum magst du mich denn nicht? Dabei bin ich doch so ein schöner Text! Also wirklich, da bin ich ja fast ein bisschen eingeschnappt ... Hallo, ich bin ein Text! Ich möchte mich gerne etwas umsehen! Warum magst du mich denn nicht? Dabei bin ich doch so ein schöner Text! Also wirklich, da bin ich ja fast ein bisschen eingeschnappt ..."
-  //   )
-  // );
+  // <p class="greeting">${content.greeting}</p>
+  // <p class="jobs">${content.jobdescription}</p>
+  //   ${content.selfdescription
+  //     .map(function (item) {
+  //       return `<p class="self-description">${item}</p>`;
+  //     })
+  //     .join("")}
+  //   `;
 
   bubbles.push(
-    new Speechbubble(100, 100, 400, "left", "black", content.jobdescription)
+    new Speechbubble(
+      100,
+      100,
+      400,
+      "left",
+      "black",
+      content.greeting.replace("&hellip;", "\u2026")
+    )
   );
+  bubbles.push(
+    new Speechbubble(
+      600,
+      100,
+      400,
+      "left",
+      "black",
+      content.jobdescription.replace("&hellip;", "\u2026")
+    )
+  );
+
+  for (let i = 0; i < content.selfdescription.length; i++) {
+    bubbles.push(
+      new Speechbubble(
+        1100,
+        100 + 300 * i,
+        400,
+        "left",
+        "black",
+        content.selfdescription[i].replace("&hellip;", "\u2026")
+      )
+    );
+  }
 }

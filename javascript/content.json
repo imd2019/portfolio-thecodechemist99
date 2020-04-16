@@ -1,6 +1,6 @@
 {
   "en": {
-    "greeting": "Hey, I'm Florian",
+    "greeting": "Hey, I'm Florian!",
     "jobdescription": "A Designer, Writer and Technologist",
     "selfdescription": [
       "I’m a very passionate person and love to share my passions with others.",
@@ -13,7 +13,7 @@
   },
 
   "de": {
-    "greeting": "Hey, ich bin Florian",
+    "greeting": "Hey, ich bin Florian!",
     "jobdescription": "",
     "selfdescription": ["", "", "", "", ""],
     "mindinvitation": ""
