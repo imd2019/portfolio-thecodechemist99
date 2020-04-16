@@ -29,7 +29,7 @@ function generateHTML(content) {
     new Speechbubble(
       100,
       100,
-      400,
+      500,
       "left",
       "black",
       content.greeting.replace("&hellip;", "\u2026")
@@ -39,7 +39,7 @@ function generateHTML(content) {
     new Speechbubble(
       600,
       100,
-      400,
+      500,
       "left",
       "black",
       content.jobdescription.replace("&hellip;", "\u2026")
@@ -50,8 +50,8 @@ function generateHTML(content) {
     bubbles.push(
       new Speechbubble(
         1100,
-        100 + 300 * i,
-        400,
+        100 + 500 * i,
+        500,
         "left",
         "black",
         content.selfdescription[i].replace("&hellip;", "\u2026")
