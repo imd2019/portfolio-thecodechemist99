@@ -1,7 +1,22 @@
+/* general */
+
+body {
+  margin: 0px;
+
+  overflow: hidden;
+}
+
 /* speechbubbles */
 
 .speechbubble {
   font-family: "sanvito-pro-display", sans-serif;
   font-size: 50pt;
   line-height: 1.2em;
+}
+
+/* images */
+
+#main-area img {
+  width: 100vw;
+  overflow: hidden;
 }

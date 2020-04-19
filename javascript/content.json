@@ -1,5 +1,7 @@
 {
   "en": {
+    "portrait_alt": "Portrait of Florian Beck",
+    "workplace_alt": "Photograph of Florian's workspace",
     "greeting": "Hey, I'm Florian!",
     "jobdescription": "A Designer, Writer and Technologist",
     "selfdescription": [
@@ -13,6 +15,8 @@
   },
 
   "de": {
+    "portrait_alt": "Portrait von Florian Beck",
+    "workplace_alt": "Foto von Florians Arbeitsplatz",
     "greeting": "Hey, ich bin Florian!",
     "jobdescription": "",
     "selfdescription": ["", "", "", "", ""],

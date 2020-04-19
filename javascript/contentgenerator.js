@@ -13,7 +13,12 @@ function generateHTML(content) {
       break;
   }
 
-  // // create HTML
+  // create HTML
+  document.getElementById("main-area").innerHTML = `
+<img src="/content/images/portrait_placeholder.jpg" alt="${content.portrait_alt}" />
+<img src="/content/images/workplace_placeholder.jpg" alt="${content.workplace_alt}" />
+`;
+
   // document.getElementById("speechbubbles").innerHTML = `
 
   // <p class="greeting">${content.greeting}</p>
