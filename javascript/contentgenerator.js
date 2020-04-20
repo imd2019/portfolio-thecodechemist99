@@ -15,8 +15,8 @@ function generateHTML(content) {
 
   // create HTML
   document.getElementById("main-area").innerHTML = `
-<img src="/content/images/portrait_placeholder.jpg" alt="${content.portrait_alt}" />
-<img src="/content/images/workplace_placeholder.jpg" alt="${content.workplace_alt}" />
+<img id="portrait" src="/content/images/portrait_placeholder.jpg" alt="${content.portrait_alt}" />
+<img id="workplace" src="/content/images/workplace_placeholder.jpg" alt="${content.workplace_alt}" />
 `;
 
   // document.getElementById("speechbubbles").innerHTML = `
@@ -36,7 +36,7 @@ function generateHTML(content) {
       100,
       500,
       "left",
-      "black",
+      "white",
       content.greeting.replace("&hellip;", "\u2026")
     )
   );
