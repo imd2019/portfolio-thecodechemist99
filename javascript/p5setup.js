@@ -18,6 +18,7 @@ function setup() {
 
   /* p5 Canvas */
   let myCanvas = createCanvas(windowWidth, windowHeight);
+  myCanvas.parent("speechbubbles");
   frameRate(30);
 
   // set text properties according to css

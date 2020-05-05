@@ -14,7 +14,7 @@ function generateHTML(content) {
   }
 
   // create HTML
-  document.getElementById("main-area").innerHTML = `
+  document.getElementById("images").innerHTML = `
 <img id="portrait" src="/content/images/portrait_placeholder.jpg" alt="${content.portrait_alt}" />
 <img id="workplace" src="/content/images/workplace_placeholder.jpg" alt="${content.workplace_alt}" />
 `;
@@ -32,35 +32,35 @@ function generateHTML(content) {
 
   bubbles.push(
     new Speechbubble(
-      100,
-      100,
+      width - 800,
+      200,
       500,
       "left",
       "white",
       content.greeting.replace("&hellip;", "\u2026")
     )
   );
-  bubbles.push(
-    new Speechbubble(
-      600,
-      100,
-      500,
-      "left",
-      "black",
-      content.jobdescription.replace("&hellip;", "\u2026")
-    )
-  );
+  // bubbles.push(
+  //   new Speechbubble(
+  //     600,
+  //     100,
+  //     500,
+  //     "left",
+  //     "black",
+  //     content.jobdescription.replace("&hellip;", "\u2026")
+  //   )
+  // );
 
-  for (let i = 0; i < content.selfdescription.length; i++) {
-    bubbles.push(
-      new Speechbubble(
-        1100,
-        100 + 500 * i,
-        500,
-        "left",
-        "black",
-        content.selfdescription[i].replace("&hellip;", "\u2026")
-      )
-    );
-  }
+  // for (let i = 0; i < content.selfdescription.length; i++) {
+  //   bubbles.push(
+  //     new Speechbubble(
+  //       1100,
+  //       100 + 500 * i,
+  //       500,
+  //       "left",
+  //       "black",
+  //       content.selfdescription[i].replace("&hellip;", "\u2026")
+  //     )
+  //   );
+  // }
 }
