@@ -1,40 +1,44 @@
 /* 
-Draw a speechbubble.
+Draw a speechbubble and fit it to text.
 Distributed under the MIT license.
 (c)2020 Florian Beck
 */
 
-import InteractiveObject from "./interactiveObject.js";
+import Speechbubble from "./speechbubble.js";
 
-export default class Speechbubble extends InteractiveObject {
+export default class Textbubble extends Speechbubble {
   constructor(
     x,
     y,
     width,
-    height,
+    content,
     direction = "right",
     colour = color("#000000")
   ) {
-    super(x, y);
-    this.width = width;
-    this.height = height;
+    super(x, y, width, colour);
+    this.content = content;
+    this.height = 175;
     this.direction = direction;
-    this.colour = colour;
-    this.rotation = random(-0.1, 0.1);
-
     if (this.direction === "left") {
       this.x += this.width;
     }
   }
 
   draw() {
+    this.height = this.calcTextBoxHeight();
+
+    // draw text
+    noStroke();
+    fill(this.colour);
+    textAlign(LEFT, TOP);
     if (this.direction === "left") {
+      text(this.content, 45 - this.width, 50, this.width - 75);
       scale(-1, 1);
+    } else {
+      text(this.content, 45, 50, this.width - 75);
     }
 
     // draw shapes
-    fill(this.colour);
-    noStroke();
     beginShape();
     vertex(0, 10);
     vertex(this.width, 0);
@@ -55,5 +59,17 @@ export default class Speechbubble extends InteractiveObject {
     vertex(20, 30);
     endContour();
     endShape(CLOSE);
+  }
+
+  updateTextBox() {
+    this.height = this.calcTextBoxHeight();
+  }
+
+  calcTextBoxHeight() {
+    let length = this.content.length;
+    let avgCharWidth = (textWidth(this.content) / length) * 1.2;
+    let charPerLine = (this.width - 75) / avgCharWidth;
+
+    return ceil(length / charPerLine) * window.fontLeading + 175;
   }
 }

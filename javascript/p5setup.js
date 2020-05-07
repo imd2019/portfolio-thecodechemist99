@@ -1,42 +1,38 @@
 /* setup for p5.js */
 
-let fontSize;
-let fontLeading;
+let sketch = new p5();
+let width = windowWidth;
+let height = windowHeight;
 
-function preload() {
-  /* load JSON file */
+// function preload() {
+//   /* load JSON file */
 
-  let url = "./javascript/content.json";
-  content = loadJSON(url);
-}
+//   let url = "./javascript/content.json";
+//   content = loadJSON(url);
+// }
 
 function setup() {
-  /* load JSON file */
+  // let url = "./javascript/content.json";
+  // loadJSON(url, generateHTML);
 
-  let url = "./javascript/content.json";
-  loadJSON(url, generateHTML);
-
-  /* p5 Canvas */
-  let myCanvas = createCanvas(windowWidth, windowHeight);
-  myCanvas.parent("speechbubbles");
+  let myCanvas = sketch.createCanvas(windowWidth, windowHeight);
+  myCanvas.class("speechbubble");
   frameRate(30);
 
   // set text properties according to css
-  myCanvas.class("speechbubble");
-  font = myCanvas.style("font-family");
-  fontSize = Number(myCanvas.style("font-size").replace("px", ""));
-  fontLeading = Number(myCanvas.style("line-height").replace("px", ""));
 
-  textFont(font);
-  textSize(fontSize);
-  textLeading(fontLeading);
+  window.font = myCanvas.style("font-family");
+  window.fontSize = Number(myCanvas.style("font-size").replace("px", ""));
+  window.fontLeading = Number(myCanvas.style("line-height").replace("px", ""));
+
+  textFont(window.font);
+  textSize(window.fontSize);
+  textLeading(window.fontLeading);
 }
+window.setup = setup;
 
-window.addEventListener("resize", function () {
-  resizeCanvas(windowWidth, windowHeight);
+function windowResized() {
+  sketch.resizeCanvas(windowWidth, windowHeight);
   clear();
-});
-
-new p5();
-var width = windowWidth;
-var height = windowHeight;
+}
+window.addEventListener("resize", windowResized);
