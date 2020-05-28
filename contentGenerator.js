@@ -5,8 +5,8 @@ Distributed under the MIT license.
 */
 
 export default class ContentGenerator {
-  constructor(url, element, code, lang = "en") {
-    this.content = loadJSON(url, this.generateHTML);
+  constructor(content, element, code, lang = "en") {
+    this.content = content;
     this.lang = lang;
     this.code = code;
     this.element = document.getElementById(element);
@@ -15,13 +15,15 @@ export default class ContentGenerator {
   selectLanguage() {
     switch (this.lang) {
       case "en":
-        content = content.en;
+      case "en-US":
+      case "en-UK":
+        this.content = content.en;
         break;
       case "de":
-        content = content.de;
+        this.content = content.de;
         break;
       case "fr":
-        content = content.fr;
+        this.content = content.fr;
         break;
     }
   }
@@ -34,6 +36,7 @@ export default class ContentGenerator {
   generateHTML() {
     this.selectLanguage();
 
-    element.innerHTML = this.code;
+    this.element.innerHTML = this.code;
+    console.log(this.code)
   }
 }
