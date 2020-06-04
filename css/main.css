@@ -2,8 +2,9 @@
 
 body {
   margin: 0px;
-
   overflow: hidden;
+
+  background: black;
 }
 
 /* speechbubbles */
@@ -18,15 +19,17 @@ body {
 
 main {
   display: grid;
-  grid-template-columns: 0vw 100vw;
+  grid-template-columns: auto calc(100vh / 9 * 16) auto;
   grid-template-rows: 0vh 100vh;
 }
 
 main img {
-  width: 100vw;
+  height: 100vh;
   overflow: hidden;
+}
 
-  grid-area: 1 1 2 2;
+#images {
+  grid-area: 1 / 2 / 2 / 3;
 }
 
 #speechbubbles {
