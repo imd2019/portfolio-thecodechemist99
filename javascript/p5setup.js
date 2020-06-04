@@ -1,4 +1,8 @@
-/* setup for p5.js */
+/* 
+p5 setup.
+Distributed under the MIT license.
+(c)2020 Florian Beck
+*/
 
 let sketch = new p5();
 

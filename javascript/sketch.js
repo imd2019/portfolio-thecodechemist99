@@ -4,9 +4,9 @@ Distributed under the MIT license.
 (c)2020 Florian Beck
 */
 
-import Sprite from "./sprite.js";
-import Speechbubble from "./speechbubble.js";
-import Textbubble from "./textbubble.js";
+import Sprite from "./speechbubble/sprite.js";
+import Speechbubble from "./speechbubble/speechbubble.js";
+import Textbubble from "./speechbubble/textbubble.js";
 
 // init objects
 
