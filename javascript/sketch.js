@@ -1,33 +1,31 @@
 /* 
-Example file for speechbubble.js.
+Draw content to the sketch canvas.
 Distributed under the MIT license.
 (c)2020 Florian Beck
 */
 
 import Sprite from "./speechbubble/sprite.js";
-import Speechbubble from "./speechbubble/speechbubble.js";
 import Textbubble from "./speechbubble/textbubble.js";
 
 // init objects
 
 let world = new Sprite(0, 0);
-world.resize(width, height);
+world.resize(windowHeight / 9 * 16, windowHeight);
 
-let bubble = new Speechbubble(200, 200, 400, 300, "left");
-world.addChild(bubble);
-
-let txtBubble = new Textbubble(
-  800,
+let greetingBubble = new Textbubble(
+  1200,
   200,
   400,
-  "Hi, I'm Florian! I'm a really cool person! I like to be creative!",
-  "left"
+  "Hi, I'm Florian!",
+  "left",
+  color("#ffffff")
 );
-world.addChild(txtBubble);
+world.addChild(greetingBubble);
 
 // draw
 
 function draw() {
+  fill("white");
   world.display();
 }
 window.draw = draw;

@@ -22,6 +22,7 @@ export default class Textbubble extends Speechbubble {
     if (this.direction === "left") {
       this.x += this.width;
     }
+    this.colour = colour;
   }
 
   draw() {

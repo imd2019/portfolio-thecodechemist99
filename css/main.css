@@ -32,7 +32,9 @@ main img {
   grid-area: 1 / 2 / 2 / 3;
 }
 
-#speechbubbles {
+#sketch {
+  grid-area: 1 / 2 / 2 / 3;
+
   z-index: 20;
 }
 

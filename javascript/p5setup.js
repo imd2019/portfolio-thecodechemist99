@@ -7,14 +7,15 @@ Distributed under the MIT license.
 let sketch = new p5();
 
 function setup() {
-  let myCanvas = sketch.createCanvas(windowWidth, windowHeight);
-  myCanvas.class("speechbubble");
+  let sketchCanvas = sketch.createCanvas(windowHeight / 9 * 16, windowHeight);
+  sketchCanvas.class("speechbubble");
+  sketchCanvas.parent(document.getElementById("sketch"));
   frameRate(30);
 
   // set text properties according to css
-  window.font = myCanvas.style("font-family");
-  window.fontSize = Number(myCanvas.style("font-size").replace("px", ""));
-  window.fontLeading = Number(myCanvas.style("line-height").replace("px", ""));
+  window.font = sketchCanvas.style("font-family");
+  window.fontSize = Number(sketchCanvas.style("font-size").replace("px", ""));
+  window.fontLeading = Number(sketchCanvas.style("line-height").replace("px", ""));
 
   textFont(window.font);
   textSize(window.fontSize);
@@ -23,7 +24,7 @@ function setup() {
 window.setup = setup;
 
 function windowResized() {
-  sketch.resizeCanvas(windowWidth, windowHeight);
+  sketch.resizeCanvas(windowHeight / 9 * 16, windowHeight);
   clear();
 }
 window.addEventListener("resize", windowResized);
