@@ -37,3 +37,11 @@ function scroll(delta) {
   console.log(scrollPos);
   console.log(imgPortrait.element.style.opacity);
 }
+
+function inRange(x, start, end) {
+  if (x > start && x < end) {
+    return true;
+  }
+  return false;
+}
+
