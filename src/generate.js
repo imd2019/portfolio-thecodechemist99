@@ -4,9 +4,10 @@
  * (c) 2020 Florian Beck
 */
 
+import ScrollEventAgent from "./scrollEventAgent.js";
 import ContentGenerator from "./contentGenerator.js";
-import Sprite from "./speechbubble/sprite.js";
 import ViewController from "./viewController.js";
+import Sprite from "./speechbubble/sprite.js";
 import Textbubble from "./speechbubble/textbubble.js";
 
 /* html generation */
@@ -18,6 +19,8 @@ let content = loadJSON(url, generate);
 // generate page
 let generator = new ContentGenerator();
 let lang = "en";
+
+let bubbles = [];
 
 function generate() {
   let c;
@@ -43,6 +46,7 @@ function generate() {
     color("#ffffff")
   );
   views.addView("greeting", greetingBubble);
+  bubbles.push(greetingBubble);
   
   let jobDescription = new Textbubble(
     1200,
@@ -53,6 +57,7 @@ function generate() {
     color("#ffffff")
   );
   views.addView("jobDescription", jobDescription);
+  bubbles.push(jobDescription);
   
   for(let i in c.selfdescription) {
     let bubble = new Textbubble(
@@ -64,6 +69,7 @@ function generate() {
       color("#ffffff")
     );
     views.addView("selfDesc_" + i, bubble);
+    bubbles.push(bubble);
   }
   
   let mindInviteBubble = new Textbubble(
@@ -75,6 +81,7 @@ function generate() {
     color("#ffffff")
   );
   views.addView("mindInvite", mindInviteBubble);
+  bubbles.push(mindInviteBubble);
 }
 
 function updateLang (newLang) {
@@ -84,8 +91,8 @@ function updateLang (newLang) {
 
 /* sketch */
 
-// let world = new Sprite(0, 0);
-// world.resize(windowHeight / 9 * 16, windowHeight);
+let world = new Sprite(0, 0);
+world.resize(windowHeight / 9 * 16, windowHeight);
 
 let views = new ViewController();
 
@@ -95,6 +102,57 @@ function draw() {
 window.draw = draw;
 
 /* interactions */
+
+// scroll events
+
+let scrollAgent = new ScrollEventAgent();
+window.addEventListener("wheel", (e) => {
+  scrollAgent.scroll(e.deltaY);
+});
+
+scrollAgent.addEvent(function (scrollPos) {
+  if (scrollPos < 0 || scrollPos > 10) return;
+  
+  
+
+});
+
+scrollAgent.addEvent(function (scrollPos) {
+  if (scrollPos < 0 || scrollPos > 10) return;
+
+
+  
+});
+
+scrollAgent.addEvent(function (scrollPos) {
+  if (scrollPos < 0 || scrollPos > 10) return;
+
+
+  
+});
+
+scrollAgent.addEvent(function (scrollPos) {
+  if (scrollPos < 0 || scrollPos > 10) return;
+
+
+
+});
+
+scrollAgent.addEvent(function (scrollPos) {
+  if (scrollPos < 0 || scrollPos > 10) return;
+
+
+  
+});
+
+scrollAgent.addEvent(function (scrollPos) {
+  if (scrollPos < 0 || scrollPos > 10) return;
+
+
+  
+});
+
+// mouse events
 
 function mousePressed() {
   world.mousePressed();

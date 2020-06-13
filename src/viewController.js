@@ -1,25 +1,27 @@
 export default class ViewController {
-    constructor(){
-        this.views = {};
-        this.currentView = undefined;
-    }
+  constructor(){
+    this.views = {};
+    this.currentView = undefined;
+  }
 
-    addView(name, view){
-        this.views[name] = view;
-        if(!this.currentView) {
-            this.currentView = name;
-        }
+  addView(name, view){
+    this.views[name] = view;
+    if(!this.currentView) {
+      this.currentView = name;
     }
+  }
 
-    selectView(name) {
-        if(this.views[name]) {
-            this.currentView = name;
-            return true;
-        }
-        return false;
+  selectView(name) {
+    if(this.views[name]) {
+      this.currentView = name;
+      return true;
     }
+    return false;
+  }
 
-    display() {
-        this.views[this.currentView].display();
+  display() {
+    if (this.currentView) {
+      this.views[this.currentView].display();
     }
+  }
 }
