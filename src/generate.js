@@ -37,13 +37,15 @@ function generate() {
   `<img id="portrait" src="/src/content/img/portrait_placeholder.jpg" alt="${c.portrait_alt}" /><img id="workplace" src="/src/content/img/workplace_placeholder.jpg" alt="${c.workplace_alt}" />`
   );
 
+  let colour = color(255, 255, 255, 0);
+
   let greetingBubble = new Textbubble(
     1200,
-    200,
+    100,
     400,
     c.greeting,
     "left",
-    color("#ffffff")
+    colour
   );
   views.addView("greeting", greetingBubble);
   bubbles.push(greetingBubble);
@@ -54,7 +56,7 @@ function generate() {
     400,
     c.jobdescription,
     "left",
-    color("#ffffff")
+    colour
   );
   views.addView("jobDescription", jobDescription);
   bubbles.push(jobDescription);
@@ -66,7 +68,7 @@ function generate() {
       400,
       c.selfdescription[i],
       "left",
-      color("#ffffff")
+      colour
     );
     views.addView("selfDesc_" + i, bubble);
     bubbles.push(bubble);
@@ -78,7 +80,7 @@ function generate() {
     400,
     c.mindinvitation,
     "left",
-    color("#ffffff")
+    colour
   );
   views.addView("mindInvite", mindInviteBubble);
   bubbles.push(mindInviteBubble);
@@ -97,7 +99,9 @@ world.resize(windowHeight / 9 * 16, windowHeight);
 let views = new ViewController();
 
 function draw() {
+  clear();
   views.display();
+  scrollAgent.animate();
 }
 window.draw = draw;
 
@@ -110,47 +114,66 @@ window.addEventListener("wheel", (e) => {
   scrollAgent.scroll(e.deltaY);
 });
 
-scrollAgent.addEvent(function (scrollPos) {
-  if (scrollPos < 0 || scrollPos > 10) return;
+let greetingAlpha = 0;
+
+scrollAgent.addEvent(function (delta, scrollPos) {
+console.log(delta);
+  if (scrollPos < 0 || scrollPos > 5) return;
+
+  if (delta > 0) {
+    greetingAlpha += 50;
+  } else {
+    greetingAlpha -= 50;
+  }
+  if(greetingAlpha < 0) greetingAlpha = 0;
+  bubbles[0].colour.setAlpha(greetingAlpha);
+  bubbles[0].y += 10 * (delta / abs(delta));
+});
+
+scrollAgent.addEvent(function (delta, scrollPos) {
+  if (scrollPos < 10 || scrollPos > 19) return;
+
+  if (delta > 0) {
+    greetingAlpha -= 30;
+  } else {
+    greetingAlpha += 30;
+  }
+  if(greetingAlpha < 0) greetingAlpha = 0;
+  bubbles[0].colour.setAlpha(greetingAlpha);
+  bubbles[0].y += -10 * (delta / abs(delta));
+});
+
+scrollAgent.addEvent(function (delta, scrollPos) {
+  if (scrollPos < 15 || scrollPos > 20) return;
+  let portrait = document.getElementById("portrait");
+
+  if(scrollPos === 15) {
+    portrait.style.opacity = "1";
+  }
   
-  
+  let opacity = Number(portrait.style.opacity);
+  if (delta > 0) {
+    portrait.style.opacity = String(opacity - 0.2);
+  } else {
+    portrait.style.opacity = String(opacity + 0.2);
+  }
+  if (Number(portrait.style.opacity) < 0) portrait.style.opacity = "0";
 
 });
 
-scrollAgent.addEvent(function (scrollPos) {
-  if (scrollPos < 0 || scrollPos > 10) return;
+// scrollAgent.addEvent(function (delta, scrollPos) {
+//   if (scrollPos < 0 || scrollPos > 10) return;
 
 
   
-});
+// });
 
-scrollAgent.addEvent(function (scrollPos) {
-  if (scrollPos < 0 || scrollPos > 10) return;
-
-
-  
-});
-
-scrollAgent.addEvent(function (scrollPos) {
-  if (scrollPos < 0 || scrollPos > 10) return;
-
-
-
-});
-
-scrollAgent.addEvent(function (scrollPos) {
-  if (scrollPos < 0 || scrollPos > 10) return;
+// scrollAgent.addEvent(function (delta, scrollPos) {
+//   if (scrollPos < 0 || scrollPos > 10) return;
 
 
   
-});
-
-scrollAgent.addEvent(function (scrollPos) {
-  if (scrollPos < 0 || scrollPos > 10) return;
-
-
-  
-});
+// });
 
 // mouse events
 

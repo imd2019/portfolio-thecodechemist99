@@ -24,7 +24,7 @@ export default class ScrollEventAgent {
       this.scrollPos--;
     }
     for(let elem of this.events) {
-      elem.call(this.scrollPos);
+      elem.call(this, delta, this.scrollPos);
     }
     console.log(this.scrollPos);
   }
