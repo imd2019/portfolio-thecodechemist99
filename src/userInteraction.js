@@ -44,4 +44,3 @@ function inRange(x, start, end) {
   }
   return false;
 }
-
