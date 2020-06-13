@@ -37,6 +37,9 @@ function generate() {
   `<img id="portrait" src="/src/content/img/portrait_placeholder.jpg" alt="${c.portrait_alt}" /><img id="workplace" src="/src/content/img/workplace_placeholder.jpg" alt="${c.workplace_alt}" />`
   );
 
+  let portrait = document.getElementById("portrait");
+  portrait.style.opacity = "1";
+
   let colour = color(255, 255, 255, 0);
 
   let greetingBubble = new Textbubble(
@@ -101,7 +104,6 @@ let views = new ViewController();
 function draw() {
   clear();
   views.display();
-  scrollAgent.animate();
 }
 window.draw = draw;
 
@@ -116,50 +118,82 @@ window.addEventListener("wheel", (e) => {
 
 let greetingAlpha = 0;
 
-scrollAgent.addEvent(function (delta, scrollPos) {
-console.log(delta);
-  if (scrollPos < 0 || scrollPos > 5) return;
+scrollAgent.addEvent(1, function (delta) {
+  let counter = 0;
+  let interval = setInterval(() => {
 
-  if (delta > 0) {
-    greetingAlpha += 50;
-  } else {
-    greetingAlpha -= 50;
-  }
-  if(greetingAlpha < 0) greetingAlpha = 0;
-  bubbles[0].colour.setAlpha(greetingAlpha);
-  bubbles[0].y += 10 * (delta / abs(delta));
-});
-
-scrollAgent.addEvent(function (delta, scrollPos) {
-  if (scrollPos < 10 || scrollPos > 19) return;
-
-  if (delta > 0) {
-    greetingAlpha -= 30;
-  } else {
-    greetingAlpha += 30;
-  }
-  if(greetingAlpha < 0) greetingAlpha = 0;
-  bubbles[0].colour.setAlpha(greetingAlpha);
-  bubbles[0].y += -10 * (delta / abs(delta));
-});
-
-scrollAgent.addEvent(function (delta, scrollPos) {
-  if (scrollPos < 15 || scrollPos > 20) return;
-  let portrait = document.getElementById("portrait");
-
-  if(scrollPos === 15) {
-    portrait.style.opacity = "1";
-  }
+    if (delta > 0) {
+      greetingAlpha += 10;
+    } else {
+      greetingAlpha -= 10;
+    }
+    bubbles[0].colour.setAlpha(greetingAlpha)
+    bubbles[0].y += (delta / abs(delta));
+    console.log(counter);
   
-  let opacity = Number(portrait.style.opacity);
-  if (delta > 0) {
-    portrait.style.opacity = String(opacity - 0.2);
-  } else {
-    portrait.style.opacity = String(opacity + 0.2);
-  }
-  if (Number(portrait.style.opacity) < 0) portrait.style.opacity = "0";
-
+    if (counter >= 25) clearInterval(interval);
+    counter++;
+  }, 33);
 });
+
+scrollAgent.addEvent(20, function (delta) {
+    let counter = 0;
+    let interval = setInterval(() => {
+  
+      if (delta > 0) {
+        greetingAlpha -= 5;
+      } else {
+        greetingAlpha += 5;
+      }
+      bubbles[0].colour.setAlpha(greetingAlpha)
+      bubbles[0].y += -2 * (delta / abs(delta));
+      console.log(counter);
+    
+      if (counter >= 50) clearInterval(interval);
+      counter++;
+    }, 33);
+  });
+
+  scrollAgent.addEvent(20, function (delta) {
+    let portrait = document.getElementById("portrait");
+
+    let counter = 0;
+    let interval = setInterval(() => {
+
+      let opacity = Number(portrait.style.opacity);
+
+      if (delta > 0) {
+        portrait.style.opacity = String(opacity - 0.0125);
+      } else {
+        portrait.style.opacity = String(opacity + 0.0125);
+      }
+      console.log(counter);
+      console.log(opacity);
+    
+      if (counter >= 80) clearInterval(interval);
+      counter++;
+    }, 33);
+  });
+
+
+
+// scrollAgent.addEvent(function (delta, scrollPos) {
+//   if (scrollPos < 15 || scrollPos > 20) return;
+//   let portrait = document.getElementById("portrait");
+
+//   if(scrollPos === 15) {
+//     portrait.style.opacity = "1";
+//   }
+  
+//   let opacity = Number(portrait.style.opacity);
+//   if (delta > 0) {
+//     portrait.style.opacity = String(opacity - 0.2);
+//   } else {
+//     portrait.style.opacity = String(opacity + 0.2);
+//   }
+//   if (Number(portrait.style.opacity) < 0) portrait.style.opacity = "0";
+
+// });
 
 // scrollAgent.addEvent(function (delta, scrollPos) {
 //   if (scrollPos < 0 || scrollPos > 10) return;
