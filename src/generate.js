@@ -111,69 +111,52 @@ window.draw = draw;
 
 // scroll events
 
-let scrollAgent = new ScrollEventAgent();
+let scrollAgent = new ScrollEventAgent(frameRate());
 window.addEventListener("wheel", (e) => {
   scrollAgent.scroll(e.deltaY);
 });
 
 let greetingAlpha = 0;
 
-scrollAgent.addEvent(1, function (delta) {
-  let counter = 0;
-  let interval = setInterval(() => {
+scrollAgent.addEvent(1, 0.8, function (delta) {
 
-    if (delta > 0) {
-      greetingAlpha += 10;
-    } else {
-      greetingAlpha -= 10;
-    }
-    bubbles[0].colour.setAlpha(greetingAlpha)
-    bubbles[0].y += (delta / abs(delta));
-    console.log(counter);
+  if (delta > 0) {
+    greetingAlpha += 10;
+  } else {
+    greetingAlpha -= 10;
+  }
+  bubbles[0].colour.setAlpha(greetingAlpha)
+  bubbles[0].y += (delta / abs(delta));
+  console.log(counter);
   
-    if (counter >= 25) clearInterval(interval);
-    counter++;
-  }, 33);
 });
 
-scrollAgent.addEvent(20, function (delta) {
-    let counter = 0;
-    let interval = setInterval(() => {
-  
-      if (delta > 0) {
-        greetingAlpha -= 5;
-      } else {
-        greetingAlpha += 5;
-      }
-      bubbles[0].colour.setAlpha(greetingAlpha)
-      bubbles[0].y += -2 * (delta / abs(delta));
-      console.log(counter);
+scrollAgent.addEvent(20, 1.7, function (delta) {
+ 
+  if (delta > 0) {
+    greetingAlpha -= 5;
+  } else {
+    greetingAlpha += 5;
+  }
+  bubbles[0].colour.setAlpha(greetingAlpha)
+  bubbles[0].y += -2 * (delta / abs(delta));
+  console.log(counter);
     
-      if (counter >= 50) clearInterval(interval);
-      counter++;
-    }, 33);
-  });
+});
 
-  scrollAgent.addEvent(20, function (delta) {
-    let portrait = document.getElementById("portrait");
+scrollAgent.addEvent(20, 2.7, function (delta) {
+  let portrait = document.getElementById("portrait");
+  let opacity = Number(portrait.style.opacity);
 
-    let counter = 0;
-    let interval = setInterval(() => {
+  if (delta > 0) {
+    portrait.style.opacity = String(opacity - 0.0125);
+  } else {
+    portrait.style.opacity = String(opacity + 0.0125);
+  }
+  console.log(counter);
+  console.log(opacity);
 
-      let opacity = Number(portrait.style.opacity);
-
-      if (delta > 0) {
-        portrait.style.opacity = String(opacity - 0.0125);
-      } else {
-        portrait.style.opacity = String(opacity + 0.0125);
-      }
-      console.log(counter);
-      console.log(opacity);
-    
-      if (counter >= 80) clearInterval(interval);
-      counter++;
-    }, 33);
-  });
+});
 
 
 
