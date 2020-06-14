@@ -118,18 +118,6 @@ window.addEventListener("wheel", (e) => {
 
 let greetingAlpha = 0;
 
-scrollAgent.addEvent(1, 1.8, function (delta) {
-
-  console.log("test");
-
-  if (delta > 0) {
-    // do something
-  } else {
-    // do something
-  }
-
-});
-
 scrollAgent.addEvent(1, 0.8, function (delta) {
   // fade and move greeting bubble in/out
   if (delta > 0) {
@@ -172,40 +160,6 @@ scrollAgent.addEvent(20, 2.7, function (delta) {
   }
     
 });
-
-
-
-// scrollAgent.addEvent(function (delta, scrollPos) {
-//   if (scrollPos < 15 || scrollPos > 20) return;
-//   let portrait = document.getElementById("portrait");
-
-//   if(scrollPos === 15) {
-//     portrait.style.opacity = "1";
-//   }
-  
-//   let opacity = Number(portrait.style.opacity);
-//   if (delta > 0) {
-//     portrait.style.opacity = String(opacity - 0.2);
-//   } else {
-//     portrait.style.opacity = String(opacity + 0.2);
-//   }
-//   if (Number(portrait.style.opacity) < 0) portrait.style.opacity = "0";
-
-// });
-
-// scrollAgent.addEvent(function (delta, scrollPos) {
-//   if (scrollPos < 0 || scrollPos > 10) return;
-
-
-  
-// });
-
-// scrollAgent.addEvent(function (delta, scrollPos) {
-//   if (scrollPos < 0 || scrollPos > 10) return;
-
-
-  
-// });
 
 // mouse events
 
