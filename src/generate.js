@@ -64,18 +64,65 @@ function generate() {
   views.addView("jobDescription", jobDescription);
   bubbles.push(jobDescription);
   
-  for(let i in c.selfdescription) {
-    let bubble = new Textbubble(
-      1200,
-      200,
-      400,
-      c.selfdescription[i],
-      "left",
-      colour
-    );
-    views.addView("selfDesc_" + i, bubble);
-    bubbles.push(bubble);
-  }
+  let description = new Sprite(0, 0)
+  description.resize(windowHeight / 9 * 16, windowHeight);
+
+  let descBubble_1 = new Textbubble(
+    400,
+    200,
+    600,
+    c.selfdescription[0].replace("&hellip;", "..."),
+    "left",
+    colour
+  );
+  description.addChild(descBubble_1);
+  bubbles.push(descBubble_1);
+
+  let descBubble_2 = new Textbubble(
+    400,
+    200,
+    600,
+    c.selfdescription[1].replace("&hellip;", "..."),
+    "left",
+    colour
+  );
+  description.addChild(descBubble_2);
+  bubbles.push(descBubble_2);
+
+  let descBubble_3 = new Textbubble(
+    400,
+    200,
+    600,
+    c.selfdescription[2].replace("&hellip;", "..."),
+    "left",
+    colour
+  );
+  description.addChild(descBubble_3);
+  bubbles.push(descBubble_3);
+
+  let descBubble_4 = new Textbubble(
+    400,
+    200,
+    600,
+    c.selfdescription[3].replace("&hellip;", "..."),
+    "left",
+    colour
+  );
+  description.addChild(descBubble_4);
+  bubbles.push(descBubble_4);
+
+  let descBubble_5 = new Textbubble(
+    400,
+    200,
+    600,
+    c.selfdescription[4].replace("&hellip;", "..."),
+    "left",
+    colour
+  );
+  description.addChild(descBubble_5);
+  bubbles.push(descBubble_5);
+
+  views.addView("description", description);
   
   let mindInviteBubble = new Textbubble(
     1200,
@@ -159,6 +206,96 @@ scrollAgent.addEvent(20, 2.7, function (delta) {
     portrait.style.opacity = String(opacity + 0.0125);
   }
     
+});
+
+scrollAgent.addEvent(50, 1/30, function (delta) {
+  // transformation of workplace image
+  let img = document.getElementById("workplace");
+
+  if (delta > 0) {
+    img.classList.add("transform")
+    views.selectView("description")
+  } else {
+    img.classList.remove("transform");
+    views.selectView("greeting")
+  }
+    
+});
+
+let bubbleAlpha = 0;
+
+scrollAgent.addEvent(60, 0.8, function (delta) {
+  // fade and move bubble in/out
+  if (delta > 0) {
+    bubbleAlpha += 10;
+  } else {
+    bubbleAlpha -= 10;
+  }
+  bubbles[1].colour.setAlpha(bubbleAlpha)
+  bubbles[1].y += (delta / abs(delta));
+
+  console.log(bubbles[1]);
+  
+});
+
+scrollAgent.addEvent(70, 0.8, function (delta) {
+  // fade and move bubble out/in
+  if (delta > 0) {
+    bubbleAlpha -= 10;
+  } else {
+    bubbleAlpha += 10;
+  }
+  bubbles[1].colour.setAlpha(bubbleAlpha)
+  bubbles[1].y += -(delta / abs(delta));
+  
+});
+
+scrollAgent.addEvent(80, 0.8, function (delta) {
+  // fade and move bubble in/out
+  if (delta > 0) {
+    bubbleAlpha += 10;
+  } else {
+    bubbleAlpha -= 10;
+  }
+  bubbles[2].colour.setAlpha(bubbleAlpha)
+  bubbles[2].y += (delta / abs(delta));
+  
+});
+
+scrollAgent.addEvent(90, 0.8, function (delta) {
+  // fade and move bubble out/in
+  if (delta > 0) {
+    bubbleAlpha -= 10;
+  } else {
+    bubbleAlpha += 10;
+  }
+  bubbles[2].colour.setAlpha(bubbleAlpha)
+  bubbles[2].y += -(delta / abs(delta));
+  
+});
+
+scrollAgent.addEvent(100, 0.8, function (delta) {
+  // fade and move bubble in/out
+  if (delta > 0) {
+    bubbleAlpha += 10;
+  } else {
+    bubbleAlpha -= 10;
+  }
+  bubbles[3].colour.setAlpha(bubbleAlpha)
+  bubbles[3].y += (delta / abs(delta));
+  
+});
+
+scrollAgent.addEvent(110, 0.8, function (delta) {
+  // fade and move bubble out/in
+  if (delta > 0) {
+    bubbleAlpha -= 10;
+  } else {
+    bubbleAlpha += 10;
+  }
+  bubbles[3].colour.setAlpha(bubbleAlpha)
+  bubbles[3].y += -(delta / abs(delta));
+  
 });
 
 // mouse events

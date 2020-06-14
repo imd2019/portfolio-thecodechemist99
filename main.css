@@ -48,4 +48,12 @@ main img {
 
 #workplace {
   z-index: 0;
+  transition: transform 4s ease-in-out;
+}
+
+.transform {
+  transform: 
+    rotate(-42deg)
+    scale(6.5)
+    translate(10px, 45px);
 }
