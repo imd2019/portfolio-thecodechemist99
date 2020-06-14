@@ -111,15 +111,27 @@ window.draw = draw;
 
 // scroll events
 
-let scrollAgent = new ScrollEventAgent(frameRate());
+let scrollAgent = new ScrollEventAgent(30);
 window.addEventListener("wheel", (e) => {
   scrollAgent.scroll(e.deltaY);
 });
 
 let greetingAlpha = 0;
 
-scrollAgent.addEvent(1, 0.8, function (delta) {
+scrollAgent.addEvent(1, 1.8, function (delta) {
 
+  console.log("test");
+
+  if (delta > 0) {
+    // do something
+  } else {
+    // do something
+  }
+
+});
+
+scrollAgent.addEvent(1, 0.8, function (delta) {
+  // fade and move greeting bubble in/out
   if (delta > 0) {
     greetingAlpha += 10;
   } else {
@@ -127,24 +139,29 @@ scrollAgent.addEvent(1, 0.8, function (delta) {
   }
   bubbles[0].colour.setAlpha(greetingAlpha)
   bubbles[0].y += (delta / abs(delta));
-  console.log(counter);
   
 });
 
 scrollAgent.addEvent(20, 1.7, function (delta) {
- 
+  // greeting bubble fade out
   if (delta > 0) {
     greetingAlpha -= 5;
-  } else {
-    greetingAlpha += 5;
+    bubbles[0].colour.setAlpha(greetingAlpha)
+    bubbles[0].y += -2 * (delta / abs(delta));
   }
-  bubbles[0].colour.setAlpha(greetingAlpha)
-  bubbles[0].y += -2 * (delta / abs(delta));
-  console.log(counter);
-    
 });
 
+scrollAgent.addEvent(20, 1.7, function (delta) {
+  // greeting bubble fade in (revert)
+  if (delta < 0) {
+    greetingAlpha += 5;
+    bubbles[0].colour.setAlpha(greetingAlpha)
+    bubbles[0].y += -2 * (delta / abs(delta));
+  }
+}, 1);
+
 scrollAgent.addEvent(20, 2.7, function (delta) {
+  // transition between portrait image and workplace image
   let portrait = document.getElementById("portrait");
   let opacity = Number(portrait.style.opacity);
 
@@ -153,9 +170,7 @@ scrollAgent.addEvent(20, 2.7, function (delta) {
   } else {
     portrait.style.opacity = String(opacity + 0.0125);
   }
-  console.log(counter);
-  console.log(opacity);
-
+    
 });
 
 
