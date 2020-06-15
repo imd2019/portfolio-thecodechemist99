@@ -26,6 +26,7 @@ export default class Textbubble extends Speechbubble {
   }
 
   draw() {
+    push();
     this.height = this.calcTextBoxHeight();
 
     // draw text
@@ -60,6 +61,7 @@ export default class Textbubble extends Speechbubble {
     vertex(20, 30);
     endContour();
     endShape(CLOSE);
+    pop();
   }
 
   updateTextBox() {

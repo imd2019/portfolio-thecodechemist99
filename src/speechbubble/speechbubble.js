@@ -28,6 +28,7 @@ export default class Speechbubble extends InteractiveObject {
   }
 
   draw() {
+    push();
     if (this.direction === "left") {
       scale(-1, 1);
     }
@@ -55,5 +56,6 @@ export default class Speechbubble extends InteractiveObject {
     vertex(20, 30);
     endContour();
     endShape(CLOSE);
+    pop();
   }
 }

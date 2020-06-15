@@ -24,7 +24,7 @@ main {
 }
 
 main img {
-  height: 100vh;
+  width: calc(100vh / 9 * 16);
   overflow: hidden;
 }
 
