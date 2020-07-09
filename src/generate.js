@@ -5,6 +5,7 @@
 */
 
 import ScrollEventAgent from "./scrollEventAgent.js";
+import AnimationProcessor from "./animationProcessor.js";
 import ContentGenerator from "./contentGenerator.js";
 import ViewController from "./viewController.js";
 import Sprite from "./speechbubble/sprite.js";
@@ -21,8 +22,11 @@ let generator = new ContentGenerator();
 let lang = "en";
 
 let bubbles = [];
+let images = [];
+let portrait, workplace;
 
 function generate() {
+  // html
   let c;
   switch (lang) {
     case "de":
@@ -37,9 +41,23 @@ function generate() {
   `<img id="portrait" src="/src/content/img/portrait_placeholder.jpg" alt="${c.portrait_alt}" /><img id="workplace" src="/src/content/img/workplace_placeholder.jpg" alt="${c.workplace_alt}" />`
   );
 
-  let portrait = document.getElementById("portrait");
-  portrait.style.opacity = "1";
+  // images
+  portrait = {
+    img: document.getElementById("portrait"),
+    opacity: 1
+  };
+  images.push(portrait);
 
+  workplace = {
+    img: document.getElementById("workplace"),
+    opacity: 0
+  }
+  images.push(workplace);
+
+  // images animations
+  animate.addAnimation("fadePortrait", portrait, "opacity", 1, 0, 2.7);
+
+  // speech bubbles
   let greetingBubble = new Textbubble(
     windowWidth / 2,
     200,
@@ -140,6 +158,8 @@ function updateLang (newLang) {
 
 /* sketch */
 
+let framerate = 30;
+
 let world = new Sprite(0, 0);
 world.resize(windowHeight / 9 * 16, windowHeight);
 
@@ -148,172 +168,206 @@ let views = new ViewController();
 function draw() {
   clear();
   views.display();
+
+  // update images
+  for (let elem of images) {
+    if(elem.opacity) {
+      elem.img.style.opacity = String(elem.opacity);
+    }
+  }
 }
 window.draw = draw;
+
+/* animations */
+
+let animate = new AnimationProcessor(framerate);
+
+// animate.addAnimation();
+
+// animate.addAnimation();
+
+// animate.addAnimation();
+
+// animate.addAnimation();
+
+// animate.addAnimation();
+
+// animate.addAnimation();
+
+// animate.addAnimation();
+
+// animate.addAnimation();
+
+// animate.addAnimation();
 
 /* interactions */
 
 // scroll events
 
-let scrollAgent = new ScrollEventAgent(30);
+let scrollAgent = new ScrollEventAgent(framerate);
 window.addEventListener("wheel", (e) => {
   scrollAgent.scroll(e.deltaY);
 });
 
-let bubblesAlpha = 0;
-
-// animation presets
-
-function fadeBubbleInOut (bubble, delta, steps) {
-  if (delta > 0) {
-    bubblesAlpha += steps;
-  } else {
-    bubblesAlpha -= steps;
-  }
-  bubble.colour.setAlpha(bubblesAlpha);
-  bubble.y += (10 / steps) *(delta / abs(delta));  
-}
-
-function fadeBubbleOutIn (bubble, delta, steps) {
-  if (delta > 0) {
-    bubblesAlpha -= steps;
-  } else {
-    bubblesAlpha += steps;
-  }
-  bubble.colour.setAlpha(bubblesAlpha);
-  bubble.y -= (10 / steps) * (delta / abs(delta));
-}
-
-function fadeImageOutIn(img, delta, steps) {
-  let opacity = Number(img.style.opacity);
-  if (delta > 0) {
-    img.style.opacity = String(opacity - steps);
-  } else {
-    img.style.opacity = String(opacity + steps);
-  }
-}
-
-// events
-
-scrollAgent.addEvent(1, 0.8, function (delta) {
-  // fade and move greeting bubble in/out
-  fadeBubbleInOut(bubbles[0], delta, 10);
+scrollAgent.addEvent(20, function (delta) {
+  animate.start("fadePortrait");
 });
 
-scrollAgent.addEvent(20, 1.7, function (delta) {
-  // fade and move greeting bubble out/in
-  if (delta > 0) {
-    fadeBubbleOutIn(bubbles[0], delta, 5);
-  }
-});
 
-scrollAgent.addEvent(20, 1.7, function (delta) {
-  // greeting bubble fade in (revert)
-  if (delta < 0) {
-    fadeBubbleOutIn(bubbles[0], delta, 5);
-    views.selectView("greeting");
-  }
-}, 1);
+// let bubblesAlpha = 0;
 
-scrollAgent.addEvent(20, 2.7, function (delta) {
-  // transition between portrait image and workplace image
-  let portrait = document.getElementById("portrait");
-  fadeImageOutIn(portrait, delta, 0.0125);
-});
+// // animation presets
 
-scrollAgent.addEvent(40, 0.8, function (delta) {
-  // fade and move bubble in/out
-  views.selectView("jobDescription");
-  fadeBubbleInOut(bubbles[1], delta, 10);
-});
+// function fadeBubbleInOut (bubble, delta, steps) {
+//   if (delta > 0) {
+//     bubblesAlpha += steps;
+//   } else {
+//     bubblesAlpha -= steps;
+//   }
+//   bubble.colour.setAlpha(bubblesAlpha);
+//   bubble.y += (10 / steps) *(delta / abs(delta));  
+// }
 
-scrollAgent.addEvent(50, 0.8, function (delta) {
-  // fade and move bubble out/in
-  views.selectView("jobDescription");
-  fadeBubbleOutIn(bubbles[1], delta, 10);
-});
+// function fadeBubbleOutIn (bubble, delta, steps) {
+//   if (delta > 0) {
+//     bubblesAlpha -= steps;
+//   } else {
+//     bubblesAlpha += steps;
+//   }
+//   bubble.colour.setAlpha(bubblesAlpha);
+//   bubble.y -= (10 / steps) * (delta / abs(delta));
+// }
 
-scrollAgent.addEvent(60, 1/30, function (delta) {
-  // transformation of workplace image
-  let img = document.getElementById("workplace");
-  if (delta > 0) {
-    img.classList.add("transform")
-  } else {
-    img.classList.remove("transform");
-  }  
-});
+// function fadeImageOutIn(img, delta, steps) {
+//   let opacity = Number(img.style.opacity);
+//   if (delta > 0) {
+//     img.style.opacity = String(opacity - steps);
+//   } else {
+//     img.style.opacity = String(opacity + steps);
+//   }
+// }
 
-scrollAgent.addEvent(70, 0.8, function (delta) {
-  // fade and move bubble in/out
-  views.selectView("selfDesc_1");
-  fadeBubbleInOut(bubbles[2], delta, 10);
-});
+// // scroll events
 
-scrollAgent.addEvent(80, 0.8, function (delta) {
-  // fade and move bubble out/in
-  views.selectView("selfDesc_1");
-  fadeBubbleOutIn(bubbles[2], delta, 10);
-});
+// scrollAgent.addEvent(1, 0.8, function (delta) {
+//   // fade and move greeting bubble in/out
+//   fadeBubbleInOut(bubbles[0], delta, 10);
+// });
 
-scrollAgent.addEvent(90, 0.8, function (delta) {
-  // fade and move bubble in/out
-  views.selectView("selfDesc_2");
-  fadeBubbleInOut(bubbles[3], delta, 10);
-});
+// scrollAgent.addEvent(20, 1.7, function (delta) {
+//   // fade and move greeting bubble out/in
+//   if (delta > 0) {
+//     fadeBubbleOutIn(bubbles[0], delta, 5);
+//   }
+// });
 
-scrollAgent.addEvent(100, 0.8, function (delta) {
-  // fade and move bubble out/in
-  views.selectView("selfDesc_2");
-  fadeBubbleOutIn(bubbles[3], delta, 10);
-});
+// scrollAgent.addEvent(20, 1.7, function (delta) {
+//   // greeting bubble fade in (revert)
+//   if (delta < 0) {
+//     fadeBubbleOutIn(bubbles[0], delta, 5);
+//     views.selectView("greeting");
+//   }
+// }, 1);
 
-scrollAgent.addEvent(110, 0.8, function (delta) {
-  // fade and move bubble in/out
-  views.selectView("selfDesc_3");
-  fadeBubbleInOut(bubbles[4], delta, 10);
-});
+// scrollAgent.addEvent(20, 2.7, function (delta) {
+//   // transition between portrait image and workplace image
+//   let portrait = document.getElementById("portrait");
+//   fadeImageOutIn(portrait, delta, 0.0125);
+// });
 
-scrollAgent.addEvent(120, 0.8, function (delta) {
-  // fade and move bubble out/in
-  views.selectView("selfDesc_3");
-  fadeBubbleOutIn(bubbles[4], delta, 10);
-});
+// scrollAgent.addEvent(40, 0.8, function (delta) {
+//   // fade and move bubble in/out
+//   views.selectView("jobDescription");
+//   fadeBubbleInOut(bubbles[1], delta, 10);
+// });
 
-scrollAgent.addEvent(130, 0.8, function (delta) {
-  // fade and move bubble in/out
-  views.selectView("selfDesc_4");
-  fadeBubbleInOut(bubbles[5], delta, 10);
-});
+// scrollAgent.addEvent(50, 0.8, function (delta) {
+//   // fade and move bubble out/in
+//   views.selectView("jobDescription");
+//   fadeBubbleOutIn(bubbles[1], delta, 10);
+// });
 
-scrollAgent.addEvent(140, 0.8, function (delta) {
-  // fade and move bubble out/in
-  views.selectView("selfDesc_4");
-  fadeBubbleOutIn(bubbles[5], delta, 10);
-});
+// scrollAgent.addEvent(60, 1/30, function (delta) {
+//   // transformation of workplace image
+//   let img = document.getElementById("workplace");
+//   if (delta > 0) {
+//     img.classList.add("transform")
+//   } else {
+//     img.classList.remove("transform");
+//   }  
+// });
 
-scrollAgent.addEvent(150, 0.8, function (delta) {
-  // fade and move bubble in/out
-  views.selectView("selfDesc_5");
-  fadeBubbleInOut(bubbles[6], delta, 10);
-});
+// scrollAgent.addEvent(70, 0.8, function (delta) {
+//   // fade and move bubble in/out
+//   views.selectView("selfDesc_1");
+//   fadeBubbleInOut(bubbles[2], delta, 10);
+// });
 
-scrollAgent.addEvent(160, 0.8, function (delta) {
-  // fade and move bubble out/in
-  views.selectView("selfDesc_5");
-  fadeBubbleOutIn(bubbles[6], delta, 10);
-});
+// scrollAgent.addEvent(80, 0.8, function (delta) {
+//   // fade and move bubble out/in
+//   views.selectView("selfDesc_1");
+//   fadeBubbleOutIn(bubbles[2], delta, 10);
+// });
 
-scrollAgent.addEvent(170, 0.8, function (delta) {
-  // fade and move bubble in/out
-  views.selectView("mindInvite");
-  fadeBubbleInOut(bubbles[7], delta, 10);
-});
+// scrollAgent.addEvent(90, 0.8, function (delta) {
+//   // fade and move bubble in/out
+//   views.selectView("selfDesc_2");
+//   fadeBubbleInOut(bubbles[3], delta, 10);
+// });
 
-scrollAgent.addEvent(180, 0.8, function (delta) {
-  // fade and move bubble out/in
-  views.selectView("mindInvite");
-  fadeBubbleOutIn(bubbles[7], delta, 10);
-});
+// scrollAgent.addEvent(100, 0.8, function (delta) {
+//   // fade and move bubble out/in
+//   views.selectView("selfDesc_2");
+//   fadeBubbleOutIn(bubbles[3], delta, 10);
+// });
+
+// scrollAgent.addEvent(110, 0.8, function (delta) {
+//   // fade and move bubble in/out
+//   views.selectView("selfDesc_3");
+//   fadeBubbleInOut(bubbles[4], delta, 10);
+// });
+
+// scrollAgent.addEvent(120, 0.8, function (delta) {
+//   // fade and move bubble out/in
+//   views.selectView("selfDesc_3");
+//   fadeBubbleOutIn(bubbles[4], delta, 10);
+// });
+
+// scrollAgent.addEvent(130, 0.8, function (delta) {
+//   // fade and move bubble in/out
+//   views.selectView("selfDesc_4");
+//   fadeBubbleInOut(bubbles[5], delta, 10);
+// });
+
+// scrollAgent.addEvent(140, 0.8, function (delta) {
+//   // fade and move bubble out/in
+//   views.selectView("selfDesc_4");
+//   fadeBubbleOutIn(bubbles[5], delta, 10);
+// });
+
+// scrollAgent.addEvent(150, 0.8, function (delta) {
+//   // fade and move bubble in/out
+//   views.selectView("selfDesc_5");
+//   fadeBubbleInOut(bubbles[6], delta, 10);
+// });
+
+// scrollAgent.addEvent(160, 0.8, function (delta) {
+//   // fade and move bubble out/in
+//   views.selectView("selfDesc_5");
+//   fadeBubbleOutIn(bubbles[6], delta, 10);
+// });
+
+// scrollAgent.addEvent(170, 0.8, function (delta) {
+//   // fade and move bubble in/out
+//   views.selectView("mindInvite");
+//   fadeBubbleInOut(bubbles[7], delta, 10);
+// });
+
+// scrollAgent.addEvent(180, 0.8, function (delta) {
+//   // fade and move bubble out/in
+//   views.selectView("mindInvite");
+//   fadeBubbleOutIn(bubbles[7], delta, 10);
+// });
 
 // mouse events
 
